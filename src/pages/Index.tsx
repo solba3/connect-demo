@@ -1,7 +1,7 @@
-import { TamagotchiDevice } from "@/components/TamagotchiDevice";
+import { ConnectDemo } from "@/components/connect";
 
 const Index = () => {
-  return <TamagotchiDevice />;
+  return <ConnectDemo />;
 };
 
 export default Index;
