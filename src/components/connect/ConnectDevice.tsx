@@ -31,6 +31,26 @@ const colorVariants = {
   yellow: "from-yellow-300 to-yellow-400",
 };
 
+// LED colors based on connection state
+const getLedColor = (state: ScreenState) => {
+  switch (state) {
+    case "connection_found":
+      return { bg: "bg-cyan-400", shadow: "shadow-[0_0_8px_2px_rgba(34,211,238,0.6)]" };
+    case "searching":
+    case "question_received":
+    case "waiting_response":
+    case "discuss":
+    case "add_connection":
+      return { bg: "bg-yellow-400", shadow: "shadow-[0_0_8px_2px_rgba(250,204,21,0.6)]" };
+    case "connection_added":
+      return { bg: "bg-green-400", shadow: "shadow-[0_0_8px_2px_rgba(74,222,128,0.6)]" };
+    case "profile":
+      return { bg: "bg-green-400", shadow: "shadow-[0_0_8px_2px_rgba(74,222,128,0.6)]" };
+    default:
+      return { bg: "bg-gray-400", shadow: "" };
+  }
+};
+
 export const ConnectDevice = ({
   color,
   screenState,
@@ -53,6 +73,8 @@ export const ConnectDevice = ({
   onMenu,
   className,
 }: ConnectDeviceProps) => {
+  const ledColor = getLedColor(screenState);
+
   return (
     <div
       className={cn(
@@ -65,6 +87,15 @@ export const ConnectDevice = ({
         boxShadow: "inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.1), 0 10px 30px rgba(0,0,0,0.3)",
       }}
     >
+      {/* Status LED */}
+      <div
+        className={cn(
+          "absolute top-4 right-4 w-3 h-3 rounded-full transition-all duration-300",
+          ledColor.bg,
+          ledColor.shadow
+        )}
+      />
+
       {/* Speaker grille */}
       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-2 bg-black/20 rounded-full" />
 
