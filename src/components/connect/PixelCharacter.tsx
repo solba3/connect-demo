@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import charactersSprite from "@/assets/characters-sprite.png";
+import characterUser1 from "@/assets/character-user1.png";
+import characterUser2 from "@/assets/character-user2.png";
 
 interface PixelCharacterProps {
   variant: "user1" | "user2";
@@ -15,17 +16,11 @@ export const PixelCharacter = ({ variant, className, size = "md" }: PixelCharact
   };
 
   const dimensions = sizeMap[size];
-  
-  // The sprite shows two characters side by side
-  // user1 (dark hair) is on the left, user2 (blue hair) is on the right
-  // We'll crop and position to show the correct character
-  const characterPosition = variant === "user1" 
-    ? { objectPosition: "32% 72%" } // Left character
-    : { objectPosition: "68% 72%" }; // Right character
+  const characterImage = variant === "user1" ? characterUser1 : characterUser2;
 
   return (
     <div
-      className={cn("flex items-end justify-center overflow-hidden", className)}
+      className={cn("flex items-center justify-center overflow-hidden", className)}
       style={{ 
         width: dimensions.width, 
         height: dimensions.height,
@@ -33,11 +28,10 @@ export const PixelCharacter = ({ variant, className, size = "md" }: PixelCharact
       }}
     >
       <img
-        src={charactersSprite}
+        src={characterImage}
         alt={variant === "user1" ? "User character" : "Maya character"}
-        className="object-cover scale-[2.5]"
+        className="w-full h-full object-contain"
         style={{
-          ...characterPosition,
           imageRendering: "pixelated",
         }}
       />
