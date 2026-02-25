@@ -145,18 +145,38 @@ export const ConnectDemo = () => {
   };
 
   const handleDevice1PressA = () => {
-    if (demoStep === "discuss") {
+    if (demoStep === "found" || demoStep === "user1_answer") {
+      handleUser1SelectA();
+    } else if (demoStep === "discuss") {
       setDemoStep("add_connection");
     } else if (demoStep === "add_connection") {
       handleUser1SelectA();
     }
   };
 
+  const handleDevice1PressB = () => {
+    if (demoStep === "found" || demoStep === "user1_answer") {
+      handleUser1SelectB();
+    } else if (demoStep === "add_connection") {
+      handleUser1SelectB();
+    }
+  };
+
   const handleDevice2PressA = () => {
-    if (demoStep === "discuss") {
+    if (demoStep === "user1_waiting" || demoStep === "user2_answer") {
+      handleUser2SelectA();
+    } else if (demoStep === "discuss") {
       setDemoStep("add_connection");
     } else if (demoStep === "add_connection") {
       handleUser2SelectA();
+    }
+  };
+
+  const handleDevice2PressB = () => {
+    if (demoStep === "user1_waiting" || demoStep === "user2_answer") {
+      handleUser2SelectB();
+    } else if (demoStep === "add_connection") {
+      handleUser2SelectB();
     }
   };
 
@@ -238,6 +258,7 @@ export const ConnectDemo = () => {
             onSelectA={handleUser1SelectA}
             onSelectB={handleUser1SelectB}
             onPressA={handleDevice1PressA}
+            onPressB={handleDevice1PressB}
           />
         </div>
 
@@ -274,6 +295,7 @@ export const ConnectDemo = () => {
             onSelectA={handleUser2SelectA}
             onSelectB={handleUser2SelectB}
             onPressA={handleDevice2PressA}
+            onPressB={handleDevice2PressB}
           />
         </div>
       </div>
