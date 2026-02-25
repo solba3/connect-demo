@@ -90,28 +90,26 @@ export const DeviceScreen = ({
               </p>
             </div>
             <div className="flex flex-col gap-2 mt-3 w-full max-w-[140px]">
-              <button
-                onClick={onSelectA}
+              <div
                 className={cn(
                   "px-3 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "A"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 A: {optionA}
-              </button>
-              <button
-                onClick={onSelectB}
+              </div>
+              <div
                 className={cn(
                   "px-3 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "B"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 B: {optionB}
-              </button>
+              </div>
             </div>
           </div>
         );
@@ -130,28 +128,26 @@ export const DeviceScreen = ({
               <p className="text-xs text-foreground/90 italic">"{question}"</p>
             </div>
             <div className="flex gap-3 mt-3">
-              <button
-                onClick={onSelectA}
+              <div
                 className={cn(
                   "px-4 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "A"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 A: {optionA}
-              </button>
-              <button
-                onClick={onSelectB}
+              </div>
+              <div
                 className={cn(
                   "px-4 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "B"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 B: {optionB}
-              </button>
+              </div>
             </div>
           </div>
         );
@@ -201,28 +197,26 @@ export const DeviceScreen = ({
               </p>
             </div>
             <div className="flex gap-3 mt-3">
-              <button
-                onClick={onSelectA}
+              <div
                 className={cn(
                   "px-4 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "A"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 A: Yes
-              </button>
-              <button
-                onClick={onSelectB}
+              </div>
+              <div
                 className={cn(
                   "px-4 py-2 text-xs rounded border-2 transition-all",
                   selectedOption === "B"
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-white border-gray-300 hover:border-primary"
+                    : "bg-white/80 border-gray-300"
                 )}
               >
                 B: No
-              </button>
+              </div>
             </div>
           </div>
         );
@@ -264,9 +258,9 @@ export const DeviceScreen = ({
                 <li>Go to the art fair</li>
               </ol>
             </div>
-            <button className="mt-auto px-3 py-1.5 bg-white border border-gray-300 rounded text-xs hover:bg-gray-50">
-              I want to follow up!
-            </button>
+            <div className="mt-auto px-3 py-1.5 bg-white/80 border border-gray-300 rounded text-xs text-center">
+              Press A to follow up!
+            </div>
           </div>
         );
 
