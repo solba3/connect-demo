@@ -22,6 +22,9 @@ interface ConnectDeviceProps {
   onLeft?: () => void;
   onRight?: () => void;
   onMenu?: () => void;
+  questionChoices?: string[];
+  cursorIndex?: number;
+  selectedQuestionIndex?: number | null;
   className?: string;
 }
 
@@ -38,12 +41,12 @@ const getLedColor = (state: ScreenState) => {
       return { bg: "bg-cyan-400", shadow: "shadow-[0_0_8px_2px_rgba(34,211,238,0.6)]" };
     case "searching":
     case "question_received":
+    case "question_select":
     case "waiting_response":
     case "discuss":
     case "add_connection":
       return { bg: "bg-yellow-400", shadow: "shadow-[0_0_8px_2px_rgba(250,204,21,0.6)]" };
     case "connection_added":
-      return { bg: "bg-green-400", shadow: "shadow-[0_0_8px_2px_rgba(74,222,128,0.6)]" };
     case "profile":
       return { bg: "bg-green-400", shadow: "shadow-[0_0_8px_2px_rgba(74,222,128,0.6)]" };
     default:
@@ -71,6 +74,9 @@ export const ConnectDevice = ({
   onLeft,
   onRight,
   onMenu,
+  questionChoices,
+  cursorIndex,
+  selectedQuestionIndex,
   className,
 }: ConnectDeviceProps) => {
   const ledColor = getLedColor(screenState);
@@ -78,8 +84,7 @@ export const ConnectDevice = ({
   return (
     <div
       className={cn(
-        "relative w-full max-w-[280px] rounded-3xl p-4 shadow-2xl",
-        "bg-gradient-to-b",
+        "relative w-full max-w-[280px] rounded-3xl p-4 shadow-2xl bg-gradient-to-b",
         colorVariants[color],
         className
       )}
@@ -87,19 +92,9 @@ export const ConnectDevice = ({
         boxShadow: "inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.1), 0 10px 30px rgba(0,0,0,0.3)",
       }}
     >
-      {/* Status LED */}
-      <div
-        className={cn(
-          "absolute top-4 right-4 w-3 h-3 rounded-full transition-all duration-300",
-          ledColor.bg,
-          ledColor.shadow
-        )}
-      />
-
-      {/* Speaker grille */}
+      <div className={cn("absolute top-4 right-4 w-3 h-3 rounded-full transition-all duration-300", ledColor.bg, ledColor.shadow)} />
       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-2 bg-black/20 rounded-full" />
 
-      {/* Screen bezel */}
       <div className="mt-4 p-2 bg-gray-800 rounded-xl shadow-inner">
         <DeviceScreen
           state={screenState}
@@ -113,10 +108,12 @@ export const ConnectDevice = ({
           selectedOption={selectedOption}
           onSelectA={onSelectA}
           onSelectB={onSelectB}
+          questionChoices={questionChoices}
+          cursorIndex={cursorIndex}
+          selectedQuestionIndex={selectedQuestionIndex}
         />
       </div>
 
-      {/* Controls */}
       <div className="mt-4">
         <DeviceControls
           onA={onPressA}
@@ -129,7 +126,6 @@ export const ConnectDevice = ({
         />
       </div>
 
-      {/* Bottom decoration dots */}
       <div className="flex justify-center gap-3 mt-2">
         <div className="w-2 h-2 rounded-full bg-black/10" />
         <div className="w-2 h-2 rounded-full bg-black/10" />
