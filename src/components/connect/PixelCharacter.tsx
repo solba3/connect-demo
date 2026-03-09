@@ -1,6 +1,4 @@
 import { cn } from "@/lib/utils";
-import characterUser1 from "@/assets/character-user1.png";
-import characterUser2 from "@/assets/character-user2.png";
 
 interface PixelCharacterProps {
   variant: "user1" | "user2";
