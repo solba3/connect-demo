@@ -65,6 +65,8 @@ export const ConnectDemo = () => {
   const [user2SelectedQ, setUser2SelectedQ] = useState<number | null>(null);
   const [user1Ready, setUser1Ready] = useState(false);
   const [user2Ready, setUser2Ready] = useState(false);
+  const [user1ConnConfirm, setUser1ConnConfirm] = useState<"A" | "B" | null>(null);
+  const [user2ConnConfirm, setUser2ConnConfirm] = useState<"A" | "B" | null>(null);
   const [autoPlay, setAutoPlay] = useState(false);
 
   // User 1 picks from User 2's questions, User 2 picks from User 1's questions
@@ -95,7 +97,10 @@ export const ConnectDemo = () => {
         device1: user1Ready ? "waiting_response" : "discuss",
         device2: user2Ready ? "waiting_response" : "discuss"
       };
-      case "add_connection": return { device1: "add_connection", device2: "add_connection" };
+      case "add_connection": return {
+        device1: user1ConnConfirm ? "waiting_response" : "add_connection",
+        device2: user2ConnConfirm ? "waiting_response" : "add_connection"
+      };
       case "complete": return { device1: "connection_added", device2: "connection_added" };
       default: return { device1: "idle", device2: "idle" };
     }
@@ -106,10 +111,22 @@ export const ConnectDemo = () => {
   // Check if both ready to discuss → advance
   useEffect(() => {
     if (demoStep === "discuss" && user1Ready && user2Ready) {
-      const t = setTimeout(() => setDemoStep("add_connection"), 500);
+      const t = setTimeout(() => {
+        setDemoStep("add_connection");
+        setUser1Cursor(0);
+        setUser2Cursor(0);
+      }, 500);
       return () => clearTimeout(t);
     }
   }, [user1Ready, user2Ready, demoStep]);
+
+  // Check if both confirmed connection → complete
+  useEffect(() => {
+    if (demoStep === "add_connection" && user1ConnConfirm && user2ConnConfirm) {
+      const t = setTimeout(() => setDemoStep("complete"), 500);
+      return () => clearTimeout(t);
+    }
+  }, [user1ConnConfirm, user2ConnConfirm, demoStep]);
 
   // Auto-advance for early steps
   useEffect(() => {
@@ -142,7 +159,7 @@ export const ConnectDemo = () => {
       setUser1Cursor(c => Math.max(0, c - 1));
     } else if (demoStep === "user1_answer" || (demoStep === "user2_answer" && !user1Selection)) {
       setUser1Cursor(c => Math.max(0, c - 1));
-    } else if (demoStep === "add_connection") {
+    } else if (demoStep === "add_connection" && !user1ConnConfirm) {
       setUser1Cursor(c => Math.max(0, c - 1));
     }
   };
@@ -152,7 +169,7 @@ export const ConnectDemo = () => {
       setUser1Cursor(c => Math.min(2, c + 1));
     } else if (demoStep === "user1_answer" || (demoStep === "user2_answer" && !user1Selection)) {
       setUser1Cursor(c => Math.min(1, c + 1));
-    } else if (demoStep === "add_connection") {
+    } else if (demoStep === "add_connection" && !user1ConnConfirm) {
       setUser1Cursor(c => Math.min(1, c + 1));
     }
   };
@@ -177,9 +194,8 @@ export const ConnectDemo = () => {
       } else {
         setDemoStep("discuss");
       }
-    } else if (demoStep === "add_connection") {
-      setUser1Selection(user1Cursor === 0 ? "A" : "B");
-      setTimeout(() => setDemoStep("complete"), 500);
+    } else if (demoStep === "add_connection" && !user1ConnConfirm) {
+      setUser1ConnConfirm(user1Cursor === 0 ? "A" : "B");
     }
   };
 
@@ -193,7 +209,7 @@ export const ConnectDemo = () => {
       setUser2Cursor(c => Math.max(0, c - 1));
     } else if (demoStep === "user2_answer" && !user2Selection) {
       setUser2Cursor(c => Math.max(0, c - 1));
-    } else if (demoStep === "add_connection") {
+    } else if (demoStep === "add_connection" && !user2ConnConfirm) {
       setUser2Cursor(c => Math.max(0, c - 1));
     }
   };
@@ -203,7 +219,7 @@ export const ConnectDemo = () => {
       setUser2Cursor(c => Math.min(2, c + 1));
     } else if (demoStep === "user2_answer" && !user2Selection) {
       setUser2Cursor(c => Math.min(1, c + 1));
-    } else if (demoStep === "add_connection") {
+    } else if (demoStep === "add_connection" && !user2ConnConfirm) {
       setUser2Cursor(c => Math.min(1, c + 1));
     }
   };
@@ -235,9 +251,8 @@ export const ConnectDemo = () => {
       } else {
         setDemoStep("discuss");
       }
-    } else if (demoStep === "add_connection") {
-      setUser2Selection(user2Cursor === 0 ? "A" : "B");
-      setTimeout(() => setDemoStep("complete"), 500);
+    } else if (demoStep === "add_connection" && !user2ConnConfirm) {
+      setUser2ConnConfirm(user2Cursor === 0 ? "A" : "B");
     }
   };
 
@@ -264,6 +279,8 @@ export const ConnectDemo = () => {
     setUser2SelectedQ(null);
     setUser1Ready(false);
     setUser2Ready(false);
+    setUser1ConnConfirm(null);
+    setUser2ConnConfirm(null);
     setAutoPlay(false);
   };
 
@@ -324,7 +341,7 @@ export const ConnectDemo = () => {
             question={user1ActiveQ?.question}
             optionA={user1ActiveQ?.optionA}
             optionB={user1ActiveQ?.optionB}
-            selectedOption={user1Selection}
+            selectedOption={demoStep === "add_connection" ? user1ConnConfirm : user1Selection}
             onPressA={handleDevice1PressA}
             onPressB={handleDevice1PressB}
             onUp={handleDevice1Up}
@@ -358,7 +375,7 @@ export const ConnectDemo = () => {
             question={user2ActiveQ?.question}
             optionA={user2ActiveQ?.optionA}
             optionB={user2ActiveQ?.optionB}
-            selectedOption={user2Selection}
+            selectedOption={demoStep === "add_connection" ? user2ConnConfirm : user2Selection}
             onPressA={handleDevice2PressA}
             onPressB={handleDevice2PressB}
             onUp={handleDevice2Up}
