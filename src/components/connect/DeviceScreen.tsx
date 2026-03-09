@@ -2,16 +2,16 @@ import { cn } from "@/lib/utils";
 import { PixelCharacter } from "./PixelCharacter";
 
 export type ScreenState =
-  | "idle"
-  | "searching"
-  | "connection_found"
-  | "question_select"
-  | "question_received"
-  | "waiting_response"
-  | "discuss"
-  | "add_connection"
-  | "connection_added"
-  | "profile";
+"idle" |
+"searching" |
+"connection_found" |
+"question_select" |
+"question_received" |
+"waiting_response" |
+"discuss" |
+"add_connection" |
+"connection_added" |
+"profile";
 
 interface DeviceScreenProps {
   state: ScreenState;
@@ -43,7 +43,7 @@ export const DeviceScreen = ({
   selectedOption,
   questionChoices,
   cursorIndex = 0,
-  selectedQuestionIndex,
+  selectedQuestionIndex
 }: DeviceScreenProps) => {
   const currentDate = new Date();
   const dateStr = currentDate.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" });
@@ -55,11 +55,11 @@ export const DeviceScreen = ({
         return (
           <div className="flex flex-col items-center justify-center h-full gap-2 px-4">
             <PixelCharacter variant={userVariant} size="lg" />
-            <p className="text-xs text-center font-pixel text-foreground/70 mt-2">
+            <p className="text-xs text-center font-pixel text-foreground/70 mt-2 my-[10px]">
               Searching for connections...
             </p>
-          </div>
-        );
+          </div>);
+
 
       case "searching":
         return (
@@ -70,8 +70,8 @@ export const DeviceScreen = ({
               <span className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
               <span className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "connection_found":
         return (
@@ -89,8 +89,8 @@ export const DeviceScreen = ({
               </p>
               <p className="text-[10px] text-foreground/60 mt-1">[Press A to continue]</p>
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "question_select":
         return (
@@ -100,25 +100,25 @@ export const DeviceScreen = ({
             </p>
             <p className="text-[10px] text-foreground/60 mb-2 text-center">Pick one to answer</p>
             <div className="flex flex-col gap-1.5 flex-1">
-              {(questionChoices || []).map((q, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "px-2 py-1.5 text-[10px] rounded border-2 transition-all leading-tight",
-                    selectedQuestionIndex === i
-                      ? "bg-emerald-500/20 border-emerald-500 text-foreground font-bold"
-                      : cursorIndex === i
-                      ? "border-foreground/60 bg-foreground/10 text-foreground"
-                      : "border-transparent bg-foreground/5 text-foreground/70"
-                  )}
-                >
+              {(questionChoices || []).map((q, i) =>
+              <div
+                key={i}
+                className={cn(
+                  "px-2 py-1.5 text-[10px] rounded border-2 transition-all leading-tight",
+                  selectedQuestionIndex === i ?
+                  "bg-emerald-500/20 border-emerald-500 text-foreground font-bold" :
+                  cursorIndex === i ?
+                  "border-foreground/60 bg-foreground/10 text-foreground" :
+                  "border-transparent bg-foreground/5 text-foreground/70"
+                )}>
+                
                   {cursorIndex === i && selectedQuestionIndex === null && "▶ "}{q}
                 </div>
-              ))}
+              )}
             </div>
             <p className="text-[10px] text-foreground/50 text-center pb-1">↑↓ navigate · A select</p>
-          </div>
-        );
+          </div>);
+
 
       case "question_received":
         return (
@@ -136,27 +136,27 @@ export const DeviceScreen = ({
             <div className="flex flex-col gap-1.5 mt-2 w-full">
               <div className={cn(
                 "px-2 py-1.5 text-[10px] rounded border-2 transition-all",
-                selectedOption === "A"
-                  ? "bg-emerald-500/20 border-emerald-500 font-bold"
-                  : cursorIndex === 0
-                  ? "border-foreground/60 bg-foreground/10"
-                  : "border-transparent bg-foreground/5"
+                selectedOption === "A" ?
+                "bg-emerald-500/20 border-emerald-500 font-bold" :
+                cursorIndex === 0 ?
+                "border-foreground/60 bg-foreground/10" :
+                "border-transparent bg-foreground/5"
               )}>
                 {cursorIndex === 0 && !selectedOption && "▶ "}A: {optionA}
               </div>
               <div className={cn(
                 "px-2 py-1.5 text-[10px] rounded border-2 transition-all",
-                selectedOption === "B"
-                  ? "bg-emerald-500/20 border-emerald-500 font-bold"
-                  : cursorIndex === 1
-                  ? "border-foreground/60 bg-foreground/10"
-                  : "border-transparent bg-foreground/5"
+                selectedOption === "B" ?
+                "bg-emerald-500/20 border-emerald-500 font-bold" :
+                cursorIndex === 1 ?
+                "border-foreground/60 bg-foreground/10" :
+                "border-transparent bg-foreground/5"
               )}>
                 {cursorIndex === 1 && !selectedOption && "▶ "}B: {optionB}
               </div>
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "waiting_response":
         return (
@@ -170,8 +170,8 @@ export const DeviceScreen = ({
               <span className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
               <span className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "discuss":
         return (
@@ -188,8 +188,8 @@ export const DeviceScreen = ({
                 [Press A when ready]
               </p>
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "add_connection":
         return (
@@ -202,27 +202,27 @@ export const DeviceScreen = ({
             <div className="flex flex-col gap-1.5 mt-3 w-full">
               <div className={cn(
                 "px-2 py-1.5 text-[10px] rounded border-2 transition-all",
-                selectedOption === "A"
-                  ? "bg-emerald-500/20 border-emerald-500 font-bold"
-                  : cursorIndex === 0
-                  ? "border-foreground/60 bg-foreground/10"
-                  : "border-transparent bg-foreground/5"
+                selectedOption === "A" ?
+                "bg-emerald-500/20 border-emerald-500 font-bold" :
+                cursorIndex === 0 ?
+                "border-foreground/60 bg-foreground/10" :
+                "border-transparent bg-foreground/5"
               )}>
                 {cursorIndex === 0 && !selectedOption && "▶ "}A: Yes
               </div>
               <div className={cn(
                 "px-2 py-1.5 text-[10px] rounded border-2 transition-all",
-                selectedOption === "B"
-                  ? "bg-emerald-500/20 border-emerald-500 font-bold"
-                  : cursorIndex === 1
-                  ? "border-foreground/60 bg-foreground/10"
-                  : "border-transparent bg-foreground/5"
+                selectedOption === "B" ?
+                "bg-emerald-500/20 border-emerald-500 font-bold" :
+                cursorIndex === 1 ?
+                "border-foreground/60 bg-foreground/10" :
+                "border-transparent bg-foreground/5"
               )}>
                 {cursorIndex === 1 && !selectedOption && "▶ "}B: No
               </div>
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "connection_added":
         return (
@@ -239,8 +239,8 @@ export const DeviceScreen = ({
                 You earned 1 gem 💎
               </p>
             </div>
-          </div>
-        );
+          </div>);
+
 
       case "profile":
         return (
@@ -263,8 +263,8 @@ export const DeviceScreen = ({
             <div className="mt-auto px-3 py-1.5 border border-foreground/20 rounded text-xs text-center text-foreground/60">
               Press A to follow up!
             </div>
-          </div>
-        );
+          </div>);
+
 
       default:
         return null;
@@ -288,6 +288,6 @@ export const DeviceScreen = ({
       </div>
 
       <div className="relative h-full pt-6">{renderContent()}</div>
-    </div>
-  );
+    </div>);
+
 };
