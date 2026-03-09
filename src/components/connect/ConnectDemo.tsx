@@ -375,7 +375,7 @@ export const ConnectDemo = () => {
             question={user2ActiveQ?.question}
             optionA={user2ActiveQ?.optionA}
             optionB={user2ActiveQ?.optionB}
-            selectedOption={user2Selection}
+            selectedOption={demoStep === "add_connection" ? user2ConnConfirm : user2Selection}
             onPressA={handleDevice2PressA}
             onPressB={handleDevice2PressB}
             onUp={handleDevice2Up}
