@@ -65,6 +65,8 @@ export const ConnectDemo = () => {
   const [user2SelectedQ, setUser2SelectedQ] = useState<number | null>(null);
   const [user1Ready, setUser1Ready] = useState(false);
   const [user2Ready, setUser2Ready] = useState(false);
+  const [user1ConnConfirm, setUser1ConnConfirm] = useState<"A" | "B" | null>(null);
+  const [user2ConnConfirm, setUser2ConnConfirm] = useState<"A" | "B" | null>(null);
   const [autoPlay, setAutoPlay] = useState(false);
 
   // User 1 picks from User 2's questions, User 2 picks from User 1's questions
