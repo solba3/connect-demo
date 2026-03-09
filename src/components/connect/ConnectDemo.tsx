@@ -6,54 +6,54 @@ import { RotateCcw, Play, SkipForward } from "lucide-react";
 
 // User 1's questions (sent to User 2 to pick from)
 const USER1_QUESTIONS = [
-  {
-    question: "What feels more true to you?",
-    optionA: "I live for spontaneous adventures",
-    optionB: "I prefer a well-planned day",
-  },
-  {
-    question: "When meeting someone new, do you prefer...",
-    optionA: "Deep conversations right away",
-    optionB: "Starting with small talk",
-  },
-  {
-    question: "What energizes you more?",
-    optionA: "Being around people",
-    optionB: "Quiet alone time",
-  },
-];
+{
+  question: "What feels more true to you?",
+  optionA: "I live for spontaneous adventures",
+  optionB: "I prefer a well-planned day"
+},
+{
+  question: "When meeting someone new, do you prefer...",
+  optionA: "Deep conversations right away",
+  optionB: "Starting with small talk"
+},
+{
+  question: "What energizes you more?",
+  optionA: "Being around people",
+  optionB: "Quiet alone time"
+}];
+
 
 // User 2's questions (sent to User 1 to pick from)
 const USER2_QUESTIONS = [
-  {
-    question: "How do you recharge after a long week?",
-    optionA: "Going out with friends",
-    optionB: "Staying in with a good book",
-  },
-  {
-    question: "What matters more in a friendship?",
-    optionA: "Shared experiences",
-    optionB: "Emotional understanding",
-  },
-  {
-    question: "Your ideal weekend includes...",
-    optionA: "Exploring somewhere new",
-    optionB: "A cozy routine at home",
-  },
-];
+{
+  question: "How do you recharge after a long week?",
+  optionA: "Going out with friends",
+  optionB: "Staying in with a good book"
+},
+{
+  question: "What matters more in a friendship?",
+  optionA: "Shared experiences",
+  optionB: "Emotional understanding"
+},
+{
+  question: "Your ideal weekend includes...",
+  optionA: "Exploring somewhere new",
+  optionB: "A cozy routine at home"
+}];
+
 
 type DemoStep =
-  | "start"
-  | "searching"
-  | "found"
-  | "user1_select"
-  | "user2_select"
-  | "user1_answer"
-  | "user2_answer"
-  | "both_answered"
-  | "discuss"
-  | "add_connection"
-  | "complete";
+"start" |
+"searching" |
+"found" |
+"user1_select" |
+"user2_select" |
+"user1_answer" |
+"user2_answer" |
+"both_answered" |
+"discuss" |
+"add_connection" |
+"complete";
 
 export const ConnectDemo = () => {
   const [demoStep, setDemoStep] = useState<DemoStep>("start");
@@ -70,39 +70,39 @@ export const ConnectDemo = () => {
   const [autoPlay, setAutoPlay] = useState(false);
 
   // User 1 picks from User 2's questions, User 2 picks from User 1's questions
-  const user1QuestionChoices = USER2_QUESTIONS.map(q => q.question);
-  const user2QuestionChoices = USER1_QUESTIONS.map(q => q.question);
+  const user1QuestionChoices = USER2_QUESTIONS.map((q) => q.question);
+  const user2QuestionChoices = USER1_QUESTIONS.map((q) => q.question);
 
   const user1ActiveQ = user1SelectedQ !== null ? USER2_QUESTIONS[user1SelectedQ] : null;
   const user2ActiveQ = user2SelectedQ !== null ? USER1_QUESTIONS[user2SelectedQ] : null;
 
   // Get screen states
-  const getDeviceStates = (): { device1: ScreenState; device2: ScreenState } => {
+  const getDeviceStates = (): {device1: ScreenState;device2: ScreenState;} => {
     switch (demoStep) {
-      case "start": return { device1: "idle", device2: "idle" };
-      case "searching": return { device1: "searching", device2: "searching" };
-      case "found": return { device1: "connection_found", device2: "connection_found" };
-      case "user1_select": return { device1: "question_select", device2: "waiting_response" };
-      case "user2_select": return {
-        device1: user1SelectedQ !== null ? "waiting_response" : "question_select",
-        device2: "question_select"
-      };
-      case "user1_answer": return { device1: "question_received", device2: "waiting_response" };
-      case "user2_answer": return {
-        device1: user1Selection ? "waiting_response" : "question_received",
-        device2: "question_received"
-      };
-      case "both_answered": return { device1: "discuss", device2: "discuss" };
-      case "discuss": return {
-        device1: user1Ready ? "waiting_response" : "discuss",
-        device2: user2Ready ? "waiting_response" : "discuss"
-      };
-      case "add_connection": return {
-        device1: user1ConnConfirm ? "waiting_response" : "add_connection",
-        device2: user2ConnConfirm ? "waiting_response" : "add_connection"
-      };
-      case "complete": return { device1: "connection_added", device2: "connection_added" };
-      default: return { device1: "idle", device2: "idle" };
+      case "start":return { device1: "idle", device2: "idle" };
+      case "searching":return { device1: "searching", device2: "searching" };
+      case "found":return { device1: "connection_found", device2: "connection_found" };
+      case "user1_select":return { device1: "question_select", device2: "waiting_response" };
+      case "user2_select":return {
+          device1: user1SelectedQ !== null ? "waiting_response" : "question_select",
+          device2: "question_select"
+        };
+      case "user1_answer":return { device1: "question_received", device2: "waiting_response" };
+      case "user2_answer":return {
+          device1: user1Selection ? "waiting_response" : "question_received",
+          device2: "question_received"
+        };
+      case "both_answered":return { device1: "discuss", device2: "discuss" };
+      case "discuss":return {
+          device1: user1Ready ? "waiting_response" : "discuss",
+          device2: user2Ready ? "waiting_response" : "discuss"
+        };
+      case "add_connection":return {
+          device1: user1ConnConfirm ? "waiting_response" : "add_connection",
+          device2: user2ConnConfirm ? "waiting_response" : "add_connection"
+        };
+      case "complete":return { device1: "connection_added", device2: "connection_added" };
+      default:return { device1: "idle", device2: "idle" };
     }
   };
 
@@ -134,7 +134,7 @@ export const ConnectDemo = () => {
     const timers: Partial<Record<DemoStep, number>> = {
       start: 1000,
       searching: 2000,
-      found: 2500,
+      found: 2500
     };
     const delay = timers[demoStep];
     if (delay) {
@@ -145,32 +145,32 @@ export const ConnectDemo = () => {
 
   const advanceDemo = () => {
     const steps: DemoStep[] = [
-      "start", "searching", "found", "user1_select", "user2_select",
-      "user1_answer", "user2_answer", "both_answered", "discuss",
-      "add_connection", "complete",
-    ];
+    "start", "searching", "found", "user1_select", "user2_select",
+    "user1_answer", "user2_answer", "both_answered", "discuss",
+    "add_connection", "complete"];
+
     const idx = steps.indexOf(demoStep);
     if (idx < steps.length - 1) setDemoStep(steps[idx + 1]);
   };
 
   // Device 1 controls
   const handleDevice1Up = () => {
-    if (demoStep === "user1_select" || (demoStep === "user2_select" && user1SelectedQ === null)) {
-      setUser1Cursor(c => Math.max(0, c - 1));
-    } else if (demoStep === "user1_answer" || (demoStep === "user2_answer" && !user1Selection)) {
-      setUser1Cursor(c => Math.max(0, c - 1));
+    if (demoStep === "user1_select" || demoStep === "user2_select" && user1SelectedQ === null) {
+      setUser1Cursor((c) => Math.max(0, c - 1));
+    } else if (demoStep === "user1_answer" || demoStep === "user2_answer" && !user1Selection) {
+      setUser1Cursor((c) => Math.max(0, c - 1));
     } else if (demoStep === "add_connection" && !user1ConnConfirm) {
-      setUser1Cursor(c => Math.max(0, c - 1));
+      setUser1Cursor((c) => Math.max(0, c - 1));
     }
   };
 
   const handleDevice1Down = () => {
-    if (demoStep === "user1_select" || (demoStep === "user2_select" && user1SelectedQ === null)) {
-      setUser1Cursor(c => Math.min(2, c + 1));
-    } else if (demoStep === "user1_answer" || (demoStep === "user2_answer" && !user1Selection)) {
-      setUser1Cursor(c => Math.min(1, c + 1));
+    if (demoStep === "user1_select" || demoStep === "user2_select" && user1SelectedQ === null) {
+      setUser1Cursor((c) => Math.min(2, c + 1));
+    } else if (demoStep === "user1_answer" || demoStep === "user2_answer" && !user1Selection) {
+      setUser1Cursor((c) => Math.min(1, c + 1));
     } else if (demoStep === "add_connection" && !user1ConnConfirm) {
-      setUser1Cursor(c => Math.min(1, c + 1));
+      setUser1Cursor((c) => Math.min(1, c + 1));
     }
   };
 
@@ -200,27 +200,27 @@ export const ConnectDemo = () => {
   };
 
   const handleDevice1PressB = () => {
-    // B can act as back/cancel in some contexts
-  };
 
-  // Device 2 controls
-  const handleDevice2Up = () => {
-    if (demoStep === "user2_select") {
-      setUser2Cursor(c => Math.max(0, c - 1));
-    } else if (demoStep === "user2_answer" && !user2Selection) {
-      setUser2Cursor(c => Math.max(0, c - 1));
-    } else if (demoStep === "add_connection" && !user2ConnConfirm) {
-      setUser2Cursor(c => Math.max(0, c - 1));
+
+
+
+
+
+
+    // B can act as back/cancel in some contexts
+  }; // Device 2 controls
+  const handleDevice2Up = () => {if (demoStep === "user2_select") {setUser2Cursor((c) => Math.max(0, c - 1));} else if (demoStep === "user2_answer" && !user2Selection) {setUser2Cursor((c) => Math.max(0, c - 1));} else if (demoStep === "add_connection" && !user2ConnConfirm) {
+      setUser2Cursor((c) => Math.max(0, c - 1));
     }
   };
 
   const handleDevice2Down = () => {
     if (demoStep === "user2_select") {
-      setUser2Cursor(c => Math.min(2, c + 1));
+      setUser2Cursor((c) => Math.min(2, c + 1));
     } else if (demoStep === "user2_answer" && !user2Selection) {
-      setUser2Cursor(c => Math.min(1, c + 1));
+      setUser2Cursor((c) => Math.min(1, c + 1));
     } else if (demoStep === "add_connection" && !user2ConnConfirm) {
-      setUser2Cursor(c => Math.min(1, c + 1));
+      setUser2Cursor((c) => Math.min(1, c + 1));
     }
   };
 
@@ -238,7 +238,7 @@ export const ConnectDemo = () => {
       }, 500);
     } else if ((demoStep === "user2_answer" || demoStep === "user1_answer") && !user2Selection) {
       // user2 is answering in parallel once their question is ready
-      if (demoStep === "user2_answer" || (demoStep === "user1_answer" && user2ActiveQ)) {
+      if (demoStep === "user2_answer" || demoStep === "user1_answer" && user2ActiveQ) {
         setUser2Selection(user2Cursor === 0 ? "A" : "B");
         if (user1Selection) {
           setTimeout(() => setDemoStep("both_answered"), 500);
@@ -330,7 +330,7 @@ export const ConnectDemo = () => {
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
         <div className="flex flex-col items-center gap-3">
-          <span className="text-sm font-medium text-foreground/70">You</span>
+          <span className="text-sm font-medium text-foreground/70">​Jake</span>
           <ConnectDevice
             color="coral"
             screenState={device1State}
@@ -348,16 +348,16 @@ export const ConnectDemo = () => {
             onDown={handleDevice1Down}
             questionChoices={user1QuestionChoices}
             cursorIndex={user1Cursor}
-            selectedQuestionIndex={user1SelectedQ}
-          />
+            selectedQuestionIndex={user1SelectedQ} />
+          
         </div>
 
         <div className="flex flex-col items-center gap-2">
           <div className={`w-16 h-1 rounded-full transition-all duration-500 ${
-            demoStep === "start" || demoStep === "searching" ? "bg-gray-300"
-            : demoStep === "complete" ? "bg-green-500"
-            : "bg-primary animate-pulse"
-          }`} />
+          demoStep === "start" || demoStep === "searching" ? "bg-gray-300" :
+          demoStep === "complete" ? "bg-green-500" :
+          "bg-primary animate-pulse"}`
+          } />
           <span className="text-xs text-muted-foreground">
             {demoStep === "complete" ? "Connected!" : "Signal"}
           </span>
@@ -382,8 +382,8 @@ export const ConnectDemo = () => {
             onDown={handleDevice2Down}
             questionChoices={user2QuestionChoices}
             cursorIndex={user2Cursor}
-            selectedQuestionIndex={user2SelectedQ}
-          />
+            selectedQuestionIndex={user2SelectedQ} />
+          
         </div>
       </div>
 
@@ -400,6 +400,6 @@ export const ConnectDemo = () => {
           </ol>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
