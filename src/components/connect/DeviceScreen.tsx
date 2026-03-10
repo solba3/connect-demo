@@ -80,7 +80,7 @@ export const DeviceScreen = ({
               <PixelCharacter variant={userVariant} size="md" />
               <PixelCharacter variant={otherUserVariant} size="md" />
             </div>
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs font-bold text-foreground mb-1">
                 Connection found!
               </p>
@@ -127,7 +127,7 @@ export const DeviceScreen = ({
               <PixelCharacter variant={userVariant} size="sm" />
               <PixelCharacter variant={otherUserVariant} size="sm" />
             </div>
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs font-bold text-foreground mb-1">
                 {otherUserName} asks:
               </p>
@@ -180,7 +180,7 @@ export const DeviceScreen = ({
               <PixelCharacter variant={userVariant} size="md" />
               <PixelCharacter variant={otherUserVariant} size="md" />
             </div>
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs font-bold text-foreground mb-1">
                 💬 Discuss your answers!
               </p>
@@ -194,7 +194,7 @@ export const DeviceScreen = ({
       case "add_connection":
         return (
           <div className="flex flex-col items-center justify-center h-full px-4">
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs text-foreground">
                 Add <span className="font-bold">{otherUserName}</span> to connections?
               </p>
@@ -231,7 +231,7 @@ export const DeviceScreen = ({
               <PixelCharacter variant={userVariant} size="md" />
               <PixelCharacter variant={otherUserVariant} size="md" />
             </div>
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs font-bold text-foreground mb-1">
                 {otherUserName} added!
               </p>
