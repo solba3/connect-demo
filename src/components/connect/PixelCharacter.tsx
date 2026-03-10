@@ -8,9 +8,9 @@ interface PixelCharacterProps {
 
 export const PixelCharacter = ({ variant, className, size = "md" }: PixelCharacterProps) => {
   const sizeMap = {
-    sm: { width: 160, height: 224 },
-    md: { width: 240, height: 336 },
-    lg: { width: 320, height: 448 },
+    sm: { width: 60, height: 84 },
+    md: { width: 80, height: 112 },
+    lg: { width: 120, height: 168 },
   };
 
   const dimensions = sizeMap[size];
