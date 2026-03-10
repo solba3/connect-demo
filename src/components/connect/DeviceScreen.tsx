@@ -194,7 +194,7 @@ export const DeviceScreen = ({
       case "add_connection":
         return (
           <div className="flex flex-col items-center justify-center h-full px-4">
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs text-foreground">
                 Add <span className="font-bold">{otherUserName}</span> to connections?
               </p>
