@@ -369,7 +369,7 @@ export const ConnectDemo = () => {
             color="purple"
             screenState={device2State}
             userName="Maya"
-            otherUserName="You"
+            otherUserName="Jake"
             userVariant="user2"
             otherUserVariant="user1"
             question={user2ActiveQ?.question}
