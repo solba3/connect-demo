@@ -180,7 +180,7 @@ export const DeviceScreen = ({
               <PixelCharacter variant={userVariant} size="md" />
               <PixelCharacter variant={otherUserVariant} size="md" />
             </div>
-            <div className="rounded-lg p-2 text-center">
+            <div className="rounded-lg p-2 text-center bg-white/80">
               <p className="text-xs font-bold text-foreground mb-1">
                 💬 Discuss your answers!
               </p>
